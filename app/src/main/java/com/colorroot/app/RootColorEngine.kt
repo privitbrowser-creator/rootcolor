@@ -85,7 +85,7 @@ class RootColorEngine {
         )
         val patterns = listOf("saturation", "contrast", "color_temperature")
         for (root in roots) {
-            val out = sh("find $root -type f \( -name saturation -o -name contrast -o -name color_temperature \) 2>/dev/null | head -n 80")
+            val out = sh("""find $root -type f \( -name saturation -o -name contrast -o -name color_temperature \) 2>/dev/null | head -n 80""")
             out.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.forEach { path ->
                 if (patterns.any { path.endsWith(it) } && isWritable(path)) result += path
             }
